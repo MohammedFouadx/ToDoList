@@ -13,6 +13,7 @@ import sim.coder.todolist.fragment.MoreDetailsFragment
 
 
 class MainActivity : AppCompatActivity() ,HomeFragment.CallBacks{
+
     lateinit var  tabLayout: TabLayout
     lateinit var tabViewPager: ViewPager2
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -40,8 +41,6 @@ class MainActivity : AppCompatActivity() ,HomeFragment.CallBacks{
                     0->HomeFragment.newInstance("todo")
                     1->HomeFragment.newInstance("inprogress")
                     2->HomeFragment.newInstance("done")
-//                    1->InProgress.newInstance()
-//                    2->Done.newInstance()
 
                     else->HomeFragment.newInstance("todo")
                 }

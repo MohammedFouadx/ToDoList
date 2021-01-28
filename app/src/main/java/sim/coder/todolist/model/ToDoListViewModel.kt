@@ -11,12 +11,12 @@ class ToDoListViewModel : ViewModel() {
     val taskListLiveData=toDoRepository.getTasks()
 
 
-    val taskListLiveDatainprogress=toDoRepository.getTasksInProgress()
+    val taskListLiveDataInProgress=toDoRepository.getTasksInProgress()
     val taskListLiveDataDone=toDoRepository.getTasksDone()
 
 
 
-    fun updateTaskToInprogress(tasks: ToDo,level:Int){
+    fun updateTaskByPosition(tasks: ToDo, level:Int){
         toDoRepository.updateTaskByPosition(tasks,level)
     }
 
@@ -28,7 +28,7 @@ class ToDoListViewModel : ViewModel() {
     }
 
     fun deleteTask(tasks: ToDo){
-        toDoRepository.deletetask(tasks)
+        toDoRepository.deleteTask(tasks)
     }
 
 

@@ -42,13 +42,13 @@ class ToDoRepository private constructor(context: Context){
         }
     }
 
-    fun updatetask(tasks: ToDo){
+    fun updateTask(tasks: ToDo){
         executor.execute{
             ToDoDao.updateTask(tasks)
         }
     }
 
-    fun deletetask(tasks: ToDo){
+    fun deleteTask(tasks: ToDo){
         executor.execute{
             ToDoDao.deleteTask(tasks)
         }

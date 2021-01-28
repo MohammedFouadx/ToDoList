@@ -40,7 +40,7 @@
         android:layout_height="100dp"
         android:layout_marginTop="16dp"
         android:background="#ffffff"
-        android:tint="#008000"
+        android:tint="#0000FF"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/et_details_task"

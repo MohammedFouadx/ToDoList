@@ -2,14 +2,12 @@ package sim.coder.todolist.fragment
 
 import android.app.AlertDialog
 import android.content.Context
-import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Button
 import android.widget.ImageButton
 import android.widget.TextView
 import android.widget.Toast
@@ -100,6 +98,7 @@ class HomeFragment : Fragment(),InputDialog.Callbacks {
 
         when(fragmentName){
             "todo" ->{
+                addNote.visibility=View.VISIBLE
                 todoListViewModel.taskListLiveData .observe(
                         viewLifecycleOwner,
                         Observer { tasks ->
@@ -111,7 +110,8 @@ class HomeFragment : Fragment(),InputDialog.Callbacks {
             }
 
             "inprogress" ->{
-                todoListViewModel.taskListLiveDatainprogress .observe(
+                addNote.visibility=View.GONE
+                todoListViewModel.taskListLiveDataInProgress .observe(
                         viewLifecycleOwner,
                         Observer { tasks ->
                             tasks?.let {
@@ -122,13 +122,11 @@ class HomeFragment : Fragment(),InputDialog.Callbacks {
             }
 
             "done" ->{
+                addNote.visibility=View.GONE
                 todoListViewModel.taskListLiveDataDone .observe(
                         viewLifecycleOwner,
                         Observer { tasks ->
                             tasks?.let {
-
-                                Log.d("amroz",tasks.size.toString())
-
                                 updateUI(tasks)
 
 
@@ -180,6 +178,7 @@ class HomeFragment : Fragment(),InputDialog.Callbacks {
 
         init {
 
+            cardView.setOnClickListener(this)
 
             deleteTask.setOnClickListener {
                 val builder= AlertDialog.Builder(requireContext())
@@ -205,21 +204,21 @@ class HomeFragment : Fragment(),InputDialog.Callbacks {
             }
             startTask.setOnClickListener {
                 startTask.visibility=View.GONE
-               todoListViewModel.updateTaskToInprogress(todoModel,1)
+               todoListViewModel.updateTaskByPosition(todoModel,1)
 
             }
 
             doneTask.setOnClickListener {
                 startTask.visibility=View.GONE
                 doneTask.visibility=View.GONE
-              todoListViewModel.updateTaskToInprogress(todoModel,2)
+              todoListViewModel.updateTaskByPosition(todoModel,2)
 
             }
             preTask.setOnClickListener {
                 if (fragmentName == "inprogress") {
-                    todoListViewModel.updateTaskToInprogress(todoModel, 0)
+                    todoListViewModel.updateTaskByPosition(todoModel, 0)
                 }else if(fragmentName == "done"){
-                    todoListViewModel.updateTaskToInprogress(todoModel,1)
+                    todoListViewModel.updateTaskByPosition(todoModel,1)
 
                 }
             }
@@ -241,9 +240,9 @@ class HomeFragment : Fragment(),InputDialog.Callbacks {
 
 
 
+
         override fun onClick(v: View?) {
             callbacks?.onTaskSelected(todoModel.id)
-
         }
 
 

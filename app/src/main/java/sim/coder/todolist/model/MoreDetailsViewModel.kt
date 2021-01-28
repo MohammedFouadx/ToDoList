@@ -21,7 +21,7 @@ class MoreDetailsViewModel : ViewModel() {
     }
 
     fun saveTask(task: ToDo) {
-        todoRepositore.updatetask(task)
+        todoRepositore.updateTask(task)
     }
 
 }
