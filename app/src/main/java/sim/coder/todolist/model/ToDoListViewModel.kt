@@ -16,8 +16,8 @@ class ToDoListViewModel : ViewModel() {
 
 
 
-    fun updateTaskByPosition(tasks: ToDo, level:Int){
-        toDoRepository.updateTaskByPosition(tasks,level)
+    fun updateTaskByPosition(tasks: ToDo, task:Int){
+        toDoRepository.updateTaskByPosition(tasks,task)
     }
 
 
@@ -29,6 +29,10 @@ class ToDoListViewModel : ViewModel() {
 
     fun deleteTask(tasks: ToDo){
         toDoRepository.deleteTask(tasks)
+    }
+
+    fun updateTask(tasks: ToDo){
+        toDoRepository.updateTask(tasks)
     }
 
 

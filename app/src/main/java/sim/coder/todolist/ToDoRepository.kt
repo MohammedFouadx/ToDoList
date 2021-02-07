@@ -29,9 +29,9 @@ class ToDoRepository private constructor(context: Context){
     private  var executor = Executors.newSingleThreadExecutor()
 
 
-    fun updateTaskByPosition(tasks: ToDo, level:Int) {
+    fun updateTaskByPosition(tasks: ToDo, task:Int) {
         executor.execute {
-            ToDoDao.updateTaskByposition(level,tasks.id)
+            ToDoDao.updateTaskByposition(task,tasks.id)
         }
     }
 
@@ -42,9 +42,9 @@ class ToDoRepository private constructor(context: Context){
         }
     }
 
-    fun updateTask(tasks: ToDo){
+    fun updateTask(toDo: ToDo){
         executor.execute{
-            ToDoDao.updateTask(tasks)
+            ToDoDao.updateTask(toDo)
         }
     }
 
@@ -68,7 +68,7 @@ class ToDoRepository private constructor(context: Context){
         fun get():
                 ToDoRepository {
             return INSTANCE ?:
-            throw IllegalStateException("CrimeRepository must be initialized")
+            throw IllegalStateException("ToDORepository must be initialized")
         }
     }
 }

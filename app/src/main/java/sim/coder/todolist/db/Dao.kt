@@ -19,13 +19,13 @@ interface Dao {
     @Query("SELECT * FROM ToDo WHERE id=(:id)")
     fun getTask(id: Int): LiveData<ToDo?>
 
-    @Update
-    fun updateTask(task: ToDo)
-
-
     //update
     @Query("UPDATE ToDo SET task=:task where id= :id ")
     fun updateTaskByposition(task: Int, id:Int )
+
+
+    @Update
+    fun updateTask(todo: ToDo)
 
     @Delete
     fun deleteTask(task:ToDo)

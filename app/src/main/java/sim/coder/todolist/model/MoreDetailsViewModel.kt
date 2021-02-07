@@ -20,8 +20,10 @@ class MoreDetailsViewModel : ViewModel() {
         taskIdLiveDate.value = taskId
     }
 
-    fun saveTask(task: ToDo) {
-        todoRepositore.updateTask(task)
+    fun saveTask(toDo: ToDo) {
+        todoRepositore.updateTask(toDo)
     }
+
+    
 
 }
