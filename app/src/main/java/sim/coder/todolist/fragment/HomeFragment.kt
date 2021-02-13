@@ -5,6 +5,7 @@ import android.content.ClipData
 import android.content.ClipboardManager
 import android.content.Context
 import android.content.Intent
+import android.graphics.Color
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -21,6 +22,7 @@ import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.floatingactionbutton.FloatingActionButton
+import petrov.kristiyan.colorpicker.ColorPicker
 import sim.coder.todolist.InputDialog
 import sim.coder.todolist.MoreDetailsActivity
 import sim.coder.todolist.R
@@ -47,6 +49,7 @@ class HomeFragment : Fragment(),InputDialog.Callbacks {
     private  var fragmentName : String? = null
     private var adapter: TodoAdapter? = TodoAdapter(emptyList())
     private lateinit var todoModel: ToDo
+    private lateinit var pickColor:ColorPicker
 
 
 
@@ -74,7 +77,7 @@ class HomeFragment : Fragment(),InputDialog.Callbacks {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        todoModel= ToDo(0,"","", Date() )
+        todoModel= ToDo(0,"","", Date() ,0 )
 
 
 
@@ -210,13 +213,15 @@ class HomeFragment : Fragment(),InputDialog.Callbacks {
 
                 preTask.visibility=View.GONE
                 doneTask.visibility=View.GONE
-            }else if(fragmentName == "inprogress"){
+            }
+            else if(fragmentName == "inprogress"){
                 cardView.setOnClickListener {
                     Toast.makeText(context,"can not edit task when it in progress or done",Toast.LENGTH_LONG).show()
                 }
 
                 startTask.visibility=View.GONE
-            }else{
+            }
+            else{
                 cardView.setOnClickListener {
                     Toast.makeText(context,"can not edit task when it in progress or done",Toast.LENGTH_LONG).show()
                 }
@@ -323,20 +328,37 @@ class HomeFragment : Fragment(),InputDialog.Callbacks {
 
         fun bind(item: ToDo) {
 
-            if (fragmentName == "todo") {
+            if (fragmentName == "todo"){
                 cardView.setOnClickListener {
                     val intentMoreDetails = Intent(context, MoreDetailsActivity::class.java)
                     intentMoreDetails.putExtra("key", item)
                     startActivity(intentMoreDetails)
                 }
-
             }
+
+
 
 
             this.todoModel = item
             todoTitle.text = this.todoModel.title
-            //todoDetails.text= this.todoModel.details
             todoDate.text=simpleDateFormat.format(this.todoModel.date)
+
+            cardView.setCardBackgroundColor(todoModel.color)
+            if (todoModel.color < 0){
+                todoTitle.setTextColor(Color.WHITE)
+                todoDate.setTextColor(Color.WHITE)
+                startTask.setBackgroundResource(R.drawable.btn_shape_colors)
+                startTask.setBackgroundResource(R.drawable.btn_shape_colors)
+                doneTask.setBackgroundResource(R.drawable.btn_shape_colors)
+                preTask.setBackgroundResource(R.drawable.btn_shape_colors)
+                menuPopupMenu.setBackgroundColor(todoModel.color)
+
+
+
+            }else{
+                cardView.setCardBackgroundColor(Color.WHITE)
+            }
+
 
 
         }

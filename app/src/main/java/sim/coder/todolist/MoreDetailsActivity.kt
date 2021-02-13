@@ -1,9 +1,15 @@
 package sim.coder.todolist
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
+import android.util.Log
+import android.view.Menu
+import android.view.MenuInflater
+import android.view.MenuItem
+import android.view.View
 import android.widget.*
 import androidx.lifecycle.ViewModelProviders
 import sim.coder.todolist.model.ToDo
@@ -17,9 +23,9 @@ class MoreDetailsActivity : AppCompatActivity()    {
     private lateinit var titleEditText: EditText
     private lateinit var detailsEditText: EditText
     private lateinit var dateTextView: TextView
-    private lateinit var timeTextView: TextView
+    private lateinit var titleInProgressDone :TextView
+    private lateinit var detailsInProgressDone :TextView
     private val simpleDateFormat = SimpleDateFormat("MMM dd , yyyy , HH:mm" )
-    private val calendar = Calendar.getInstance()
 
 
     private val toDoListViewModel: ToDoListViewModel by lazy {
@@ -29,14 +35,19 @@ class MoreDetailsActivity : AppCompatActivity()    {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_more_details)
-        mytodo = ToDo(0,"","", Date())
+        mytodo = ToDo(0,"","", Date() , 0)
 
+        setSupportActionBar(findViewById(R.id.more_details_toolbar))
+        supportActionBar?.setDisplayHomeAsUpEnabled(true)
+        supportActionBar?.customView
+        supportActionBar?.setDisplayShowTitleEnabled(false)
 
 
         titleEditText=findViewById(R.id.editTextTextPersonName)
         detailsEditText=findViewById(R.id.editTextTextPersonName2)
         dateTextView=findViewById(R.id.editTextTextPersonName3)
-
+        titleInProgressDone=findViewById(R.id.title_inProgress)
+        detailsInProgressDone=findViewById(R.id.details_inProgress)
 
 
         var intent :ToDo= intent.getSerializableExtra("key") as ToDo
@@ -45,8 +56,48 @@ class MoreDetailsActivity : AppCompatActivity()    {
         dateTextView.setText(simpleDateFormat.format(intent.date))
 
 
+    }
+
+
+    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+        val inflater: MenuInflater = menuInflater
+        inflater.inflate(R.menu.menu_more_details, menu)
+        return super.onCreateOptionsMenu(menu)
 
     }
+
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+
+        return when(item.itemId){
+            R.id.save ->
+            {
+                val intent = Intent(this,MainActivity::class.java)
+                startActivity(intent)
+                finish()
+                Toast.makeText(this,"Task has been updated successfully",Toast.LENGTH_LONG).show()
+                true
+
+            }
+
+            else -> super.onOptionsItemSelected(item)
+
+        }
+
+
+
+    }
+
+    override fun onSupportNavigateUp(): Boolean {
+        finish()
+        return true
+    }
+
+    override fun onBackPressed() {
+        super.onBackPressed()
+        finish()
+    }
+
 
     override fun onStart() {
         super.onStart()
@@ -98,3 +149,5 @@ class MoreDetailsActivity : AppCompatActivity()    {
 
 
 }
+
+

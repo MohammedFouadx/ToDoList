@@ -3,13 +3,13 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
 
+
+
     <item
         android:id="@+id/shareNote"
         android:title="Share"
         android:icon="@drawable/ic_share"
         app:showAsAction="never"/>
-
-
 
     <item
         android:id="@+id/copeNote"
@@ -22,5 +22,8 @@
         android:title="delete"
         android:icon="@drawable/ic_delete"
         app:showAsAction="never"/>
+
+
+
 
 </menu>
